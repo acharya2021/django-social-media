@@ -23,4 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # when someone goes to your localhost
     url(r'^$', views.Homepage.as_view(), name='home'),
+    url(r'accounts/', include('accounts.urls', namespace='accounts')),
+    # connect everything under the hood to authorization
+    url(r'accounts/', include('django.contrib.auth.urls')),
 ]
