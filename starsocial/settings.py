@@ -118,3 +118,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 # directory for my static files
 STATICFILES_DIR = [os.path.join(BASE_DIR, 'static')]
+
+# go to the urls containing these names
+# lead to their corresponding views and template files
+LOGIN_REDIRECT_URL = 'test'
+LOGOUT_REDIRECT_URL = 'thanks'
