@@ -5,12 +5,13 @@
             {#            if the user is logged in, say welcome back #}
             {#            else, say this is the groups page, select one #}
             {% if user.is_authenticated %}
-                <h2>Welcome Back!</h2>
-                {#                links to their profile where they have their posts #}
-                <a href="{% url 'posts:for_user' username = user.username %}">
-                    {#                if you click on this link, ti wil take you to a list of all your posts #}
-                    @{{ user.username }}
-                </a>
+                <h2>Welcome Back!
+                    {#                links to their profile where they have their posts #}
+                    <a href="{% url 'posts:for_user' username=user.username %}">
+                        {#                if you click on this link, ti wil take you to a list of all your posts #}
+                        @{{ user.username }}
+                    </a>
+                </h2>
             {% endif %}
             {#        for everyone though show the following #}
             <h2>Groups</h2>
@@ -33,7 +34,7 @@
             {#        the object list is a list of the actual groups objects #}
             {#            display the group name, number of members, number of posts #}
             {% for group in object_list %}
-                <a href="{% url 'groups:single' slug = group.slug %}" class="list-group-item">
+                <a href="{% url 'groups:single' slug=group.slug %}" class="list-group-item">
                     {#                    click on the group name, takes you to the group detail page #}
                     <h3 class="title list-group-item-heading">{{ group.name }}</h3>
                     <div class="list-group-item-text container-fluid">

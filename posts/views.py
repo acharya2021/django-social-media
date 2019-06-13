@@ -11,6 +11,7 @@ from . import models
 from . import forms
 
 from django.contrib.auth import get_user_model
+from django.contrib import messages
 
 # when someone is logged in, use this User as the current user and call things off of that
 User = get_user_model()
@@ -34,7 +35,7 @@ class UserPosts(generic.ListView):
             # set the user that belongs to this particular post to
             # whatever username is exactly equal to the username of the user you click on
             # you want to fetch the posts that are related to the user
-            self.post.user = User.objects.prefetch_related('posts').get(username__iexact=self.kwargs.get('username'))
+            self.post_user = User.objects.prefetch_related('posts').get(username__iexact=self.kwargs.get('username'))
         except User.DoesNotExist:
             raise Http404
         else:
