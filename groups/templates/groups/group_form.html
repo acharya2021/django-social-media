@@ -1,14 +1,16 @@
 <!-- if someone wants to create a group -->
 {% extends 'groups/group_base.html' %}
-{% load bootstrap3 %}
+{% load bootstrap4 %}
 
 {% block group_content %}
-    <h4>Create a New Group!</h4>
+    <h4>Create a New Group! </h4>
     {#    link to your create view #}
     <form action="{% url 'groups:create' %}" method="POST" id="groupForm">
         {% csrf_token %}
         {% bootstrap_form form %}
-        <input type="submit" class="btn btn-primary btn-large" value="Create">
+        {% buttons %}
+            <button type="submit" class="btn btn-primary btn-large">Create</button>
+        {% endbuttons %}
     </form>
 
 

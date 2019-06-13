@@ -20,9 +20,8 @@
         {#    add a button so they can create a new group #}
         {% if user.is_authenticated %}
             {#        creating a group is also available in the nav bar, this is separate #}
-            <a href="{% url 'groups:create' %}" class="btn btn-md btn-fill btn-warning">
-                <span class="fa fa-plus-sign">Create New Group!</span>
-            </a>
+            <a href="{% url 'groups:create' %}" class="btn btn-warning" role="button"><span class="fa fa-plus"></span>
+                Create New Group!</a>
         {% endif %}
     </div>
 
@@ -34,29 +33,19 @@
             {#        the object list is a list of the actual groups objects #}
             {#            display the group name, number of members, number of posts #}
             {% for group in object_list %}
-                <a href="{% url 'groups:single' slug=group.slug %}" class="list-group-item">
-                    {#                    click on the group name, takes you to the group detail page #}
-                    <h3 class="title list-group-item-heading">{{ group.name }}</h3>
-                    <div class="list-group-item-text container-fluid">
-                        {#                        safe: if something is wrapped around <b> you will see it bold #}
-                        {{ group.description_html|safe }}
-                        {#                        say how many members and posts that group has #}
-                        <div class="row">
-                            <div class="col-md-8">
-                                <span class="badge">
-                                    {{ group.members.count }}
-                                </span>
-                                member {{ group.members.count|pluralize }}
-                            </div>
-                            <div class="col-md-4">
-                                <span class="badge">
-                                    {{ group.posts.count }}
-                                </span>
-                                post{{ group.posts.count|pluralize }}
-                            </div>
-                        </div>
+                <a href="{% url 'groups:single' slug=group.slug %}"
+                   class="list-group-item list-group-item-action flex-column align-items-start">
+                    <h3 class="mb-1">{{ group.name }}</h3>
+                    <p class="mb-1">{{ group.description_html|safe }}</p>
+                    <div class="d-flex w-40 justify-content-between">
+                        <small class="text-muted"><span class="badge badge-secondary">
+					{{ group.members.count }}</span> member{{ group.members.count|pluralize }}</small>
+                        <small class="text-muted"><span class="badge badge-secondary">
+					{{ group.posts.count }}</span> post{{ group.posts.count|pluralize }}</small>
+                        <span></span><span></span>
                     </div>
                 </a>
+
             {% endfor %}
         </div>
     </div>

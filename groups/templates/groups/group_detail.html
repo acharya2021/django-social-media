@@ -1,41 +1,44 @@
-{% extends 'groups/group_base.html' %}
+{% extends "groups/group_base.html" %}
+
 {% block pregroup %}
     {#    with class based views, the context dict holds all the model attributes #}
     {#    the context dict called group is the lower-cased singular version of the model Group #}
-    <h1>{{ group.name }}</h1>
-    <h2>Member Count: {{ group.members.count }}</h2>
 
-    <div class="content">
-        {% if user in group.members.all %}
-            {#        we only want this if the user is already in the group #}
-            <a href="{% url 'groups:leave' slug=group.slug %}" class="btn btn-lg btn-fill btn-warning">
-                <span class="fa fa-remove-circle"></span>
-                Leave
-            </a>
-        {% else %}
-            <a href="{% url 'groups:join' slug=group.slug %}" class="btn btn-lg btn-fill btn-warning">
-                <span class="fa fa-ok-circle"></span>
-                Join
-            </a>
+    <div class="container">
+        <h1>{{ group.name }}</h1>
+        <h2> Member Count: {{ group.members.count }}</h2>
 
-        {% endif %}
+        <div class="content">
+            {% if user in group.members.all %}
+                {#        we only want this if the user is already in the group #}
+
+                <a href="{% url 'groups:leave' slug=group.slug %}" class="btn btn-lg btn-warning"><span
+                        class="fa fa-times-circle-o"></span> Leave</a>
+            {% else %}
+                <a href="{% url 'groups:join' slug=group.slug %}" class="btn btn-lg btn-warning"><span
+                        class="fa fa-check-circle-o"></span> Join</a>
+            {% endif %}
+
+        </div>
     </div>
 {% endblock %}
 
-{# #}
 {% block group_content %}
-    <div class="col md-8">
+
+    <div class="col-md-8">
         {#    if the group currently has no posts #}
+
         {% if group.posts.count == 0 %}
             <h2>No posts in this group yet!</h2>
+
         {% else %}
+
             {% for post in group.posts.all %}
-{#                similar to {% extends %} but insert it into the middle of the file #}
+                {#                similar to {% extends %} but insert it into the middle of the file #}
+
                 {% include "posts/_post.html" %}
             {% endfor %}
 
         {% endif %}
     </div>
-
-
 {% endblock %}
